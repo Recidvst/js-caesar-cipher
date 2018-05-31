@@ -1,0 +1,47 @@
+<div id="app">
+    <caesar-cipher inline-template>
+        <div class="caesar-cipher">
+            <h1 class="title"> Javascript Caesar Cipher </h1>
+            
+            <div id="toggle">
+                <span class="toggle-span encode" :class="{ disabled: toggle }"> Encode </span>
+                <label class="switch">
+                    <input id="encodeToggle" type="checkbox" v-on:click="checkboxToggle">
+                    <span class="slider round"></span>
+                </label>		
+                <span class="toggle-span decode" :class="{ disabled: !toggle }"> Decode </span>
+            </div>
+            <div id="source">
+                <form>
+                <p> Choose the source of characters to be used in the cipher. Standard is a-z, but feel free to mix it up.</p>
+                <input type="text"
+                             class="source-string" 
+                             v-model="possible" 
+                             value="{possible}"
+                             />		
+                <p> Choose the shift value. This is the number of characters the encoder will shift each letter.</p>
+                <input type="number"
+                             class="shift-value"
+                             v-model="shift" 
+                             value="edit me"
+                             />	
+                </form>
+            </div>
+            
+            <div class="box-wrapper" :class="{ encode: toggle, decode: !toggle }">
+                <h2 class="subtitle"> {{ status }} </h2>
+                <hr />
+                
+                <form>
+                    <textarea class="code-value" 
+                                 v-model="encode" 
+                                 value="encode"
+                                 ></textarea>
+                    <p class="code-value"> {{ encodeString }} </p>
+    <!-- 				<button class="submit" :disabled="toggle" :class="{ disabled: toggle }"> Encode! </button> -->
+                </form>
+                
+            </div>
+        </div>	
+    </caesar-cipher>
+    </div>

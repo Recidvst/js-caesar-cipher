@@ -1,8 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Encode or decode a message using an anicent cipher method.">
+    <meta name="author" content="Recidvst">
+
+    <title> JS Caesar Cipher </title>
+
+    <link href="cipher.css" rel="stylesheet">
+  </head>
+<body>
+
 <div id="app">
-    <caesar-cipher inline-template>
-        <div class="caesar-cipher">
+<caesar-cipher inline-template>
+    <div class="caesar-cipher">
+        
+        <div class="header">
             <h1 class="title"> Javascript Caesar Cipher </h1>
-            
             <div id="toggle">
                 <span class="toggle-span encode" :class="{ disabled: toggle }"> Encode </span>
                 <label class="switch">
@@ -11,37 +27,56 @@
                 </label>		
                 <span class="toggle-span decode" :class="{ disabled: !toggle }"> Decode </span>
             </div>
-            <div id="source">
-                <form>
-                <p> Choose the source of characters to be used in the cipher. Standard is a-z, but feel free to mix it up.</p>
-                <input type="text"
-                             class="source-string" 
-                             v-model="possible" 
-                             value="{possible}"
-                             />		
-                <p> Choose the shift value. This is the number of characters the encoder will shift each letter.</p>
-                <input type="number"
-                             class="shift-value"
-                             v-model="shift" 
-                             value="edit me"
-                             />	
-                </form>
+        </div>
+        
+        <div class="body">
+            <div class="controls">
+                <div id="source">
+                    <form>
+                    <p> Choose the source of characters to be used in the cipher. Standard is a-z, but feel free to mix it up. If you want to use symbols in your code then you'll need to add them.</p>
+                    <input type="text"
+                                    class="source-string" 
+                                    v-model="possible" 
+                                    value="{possible}"
+                                    />		
+                    <p> Choose the shift value. This is the number of characters the encoder will shift each letter.</p>
+                    <input type="number"
+                                    class="shift-value"
+                                    v-model="shift" 
+                                    value="edit me"
+                                    />	
+                    </form>
+                </div>
             </div>
+
+            <div class="display">
+                <div class="info">
+                    <p>	The Caesar cipher is a simplest and widely known encryption techniques. It is a substitution cipher in which each letter of the secret message is replaced by a letter a certain number of iterations further on in the alphabet. </p>
+                    <p>
+                        The shift value is the secret key which is used to 'lock' the message. Both you and the recipient would know this value, and hopefully your enemy would not!
+                    </p>
+                </div>
+                <div class="box-wrapper" :class="{ encode: toggle, decode: !toggle }">
+                    <h2 class="subtitle"> {{status}} </h2>
+                    <hr />
+                    <form>
+                        <textarea id="encode-cmd" class="code-value" 
+                                        v-on:keyup="encoder($event)" 
+                                        >{{currentDecoded}}</textarea>
+                        <div class="arrow bounce" :class="{ encode: toggle, decode: !toggle }">
+                            <a class="fa fa-arrow-down fa-2x" href="#"></a>
+                        </div>
+                        <p class="code-value"> {{currentEncoded}} </p>
+                    </form>			
+                </div>
+            </div>
+        </div>
             
-            <div class="box-wrapper" :class="{ encode: toggle, decode: !toggle }">
-                <h2 class="subtitle"> {{ status }} </h2>
-                <hr />
-                
-                <form>
-                    <textarea class="code-value" 
-                                 v-model="encode" 
-                                 value="encode"
-                                 ></textarea>
-                    <p class="code-value"> {{ encodeString }} </p>
-    <!-- 				<button class="submit" :disabled="toggle" :class="{ disabled: toggle }"> Encode! </button> -->
-                </form>
-                
-            </div>
-        </div>	
-    </caesar-cipher>
-    </div>
+    </div>	
+</caesar-cipher>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="cipher.js"></script>
+</html>

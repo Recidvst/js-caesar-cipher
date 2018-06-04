@@ -1,5 +1,5 @@
 // Hide a secret!
-function caesar(solve = false, word, shift = 100, alpha = "abcdefghijklmnopqrstuvwxyz" ) {
+function caesar(solve = false, word, shift = 100, alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!" ) {
 	let hidden = '';
 	let wordArr = [...word];
 	shift = parseInt(shift);
@@ -8,6 +8,7 @@ function caesar(solve = false, word, shift = 100, alpha = "abcdefghijklmnopqrstu
 	// loop over letters in word and replace with a new letter (not random, but staggered)
 	wordArr.forEach( (letter, index) => { 
 		if ( letter === ' ' ) { hidden += ' '; return; } // don't change spaces
+		if ( !letter.match(/[a-z]/i)) { hidden += letter; return; } // ignore symbols/numbers
 		let newLoc;
 		let loc = alpha.indexOf(letter);		
 		// if solving, need to go backwards
@@ -28,11 +29,11 @@ function caesar(solve = false, word, shift = 100, alpha = "abcdefghijklmnopqrstu
 }
 
 // Get the obfuscated word...
-const guessingSecret = caesar(false, 'Hello World', 5000);
+const guessingSecret = caesar(false, 'Ave Imperator!', 13);
 console.warn( `SECRET HIDDEN: ${guessingSecret}` );
 
 // Reveal the secret!
-const finalResult = caesar(true, guessingSecret, 5000);
+const finalResult = caesar(true, guessingSecret, 13);
 console.error( `SECRET DECODED: ${finalResult}` );
 
 /* Note
@@ -46,14 +47,36 @@ Vue.component('caesar-cipher', {
     return {
 			toggle : false,
 			shift : 13,
-			possible : 'abcdefghijklmnopqrstuvwxyz',
-			encode : 'Encode something!',
-			encoded : 'Secrets'
+			possible : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!',
+			currentDecoded : 'Ave Imperator!',
+			currentEncoded : 'NIr VzCrEnGBE!'
     }
   },
 	methods : {
 		checkboxToggle() {
 			this.toggle = !this.toggle;
+			document.querySelector('#encode-cmd').value = this.currentEncoded;
+			this.encoder(null);
+		},
+		encoder(event) {
+			if ( this.toggle ) {
+				if ( event ) {
+					value = event.target.value;
+				}
+				else {
+					value = document.querySelector('#encode-cmd').value;
+				}
+				this.currentEncoded = caesar(true, value, this.shift, this.possible);		
+			}
+			else {
+				if ( event ) {
+					value = event.target.value;
+				}
+				else {
+					value = document.querySelector('#encode-cmd').value;
+				}
+				this.currentEncoded = caesar(false, value, this.shift, this.possible);	
+			}
 		}
 	},
 	computed : {
@@ -63,14 +86,6 @@ Vue.component('caesar-cipher', {
 			}
 			else {
 					return 'Encode';
-			}
-		},
-		encodeString : function() {
-			if ( this.toggle ) {
-				return caesar(false, this.encode, this.shift, this.possible);			
-			}
-			else {
-				return caesar(true, this.encode, this.shift, this.possible);
 			}
 		}
 	}

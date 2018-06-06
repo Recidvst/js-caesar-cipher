@@ -2,37 +2,52 @@ $encode: #54a641;
 $decode: #348ef3;
 $warning: red;
 $utilGrey: #acacac;
+html {
+	height: 100%;
+	* {
+		max-width: 100%;
+	}
+}
 body {
+	height: 100%;
+	max-width: 100vw;
 	#app {
 		width: 100%;
 		min-height: 100vh;
+		height: 100%;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 		background: #e3e3e3;
+		font-family: 'Montserrat', sans-serif;
 	}
 	.caesar-cipher {
 		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		flex-wrap: wrap;
+		flex-direction: column;
 		text-align: center;
-		max-width: 1200px;
 		background: #fff;
 	  box-shadow: 0 1px 3px 0 rgba(0,0,0,.14);
+		height: 100%;
+		&.encode {
+			border-top: 10px solid $encode;
+		}
+		&.decode {
+			border-top: 10px solid $decode;			
+		}
 		// header row
 		.header {
-			flex: 1 0 100%;	
+			flex: 0 0 75px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-wrap: wrap;
 			border-bottom: 3px solid rgba(0,0,0,.14);
 			.title {
-				font-size: 1rem;
+				font-size: 1.5rem;
 			 	flex: 0 1 40%;
      		margin: 0 auto 0 20px;		
 				text-align: left;
+				color: darkred;
 			}
 			#toggle {
 			 	flex: 1 0 auto;
@@ -44,7 +59,7 @@ body {
 				.toggle-span {
 					padding: 2px 6px;
 					font-weight: bold;
-					font-size: 1.1rem;
+					font-size: 1.5rem;
 				}
 				label.switch {
 				position: relative;
@@ -55,9 +70,9 @@ body {
 					input {
 						&:checked {
 							+ .slider {
-								border: 1px solid $decode;
+								border: 1px solid $encode;
 								&:before {
-									background-color: $decode;
+									background-color: $encode;
 									transform: translateX(26px);							
 								}						
 							}
@@ -71,7 +86,7 @@ body {
 						right: 0;
 						bottom: 0;
 						background-color: #fff;
-						border: 1px solid $encode;
+						border: 1px solid $decode;
 						border-radius: 30px;
 						transition: .4s;
 						&:before {
@@ -81,7 +96,7 @@ body {
 							width: 24px;
 							left: 4px;
 							bottom: 2px;
-							background-color: $encode;
+							background-color: $decode;
 							border-radius: 50%;
 							transition: .4s;					
 						}				
@@ -90,6 +105,8 @@ body {
 			}
 		}
 		.body {
+			// flex: 1 1 100%;
+			flex: 5 1 auto;
 			display: flex;
 			justify-content: space-between;
 			align-items: stretch;
@@ -133,16 +150,19 @@ body {
 			.display {
 				flex: 1 1 auto;
 				display: flex;
-				justify-content: center;
-				flex-direction: column;
+				justify-content: flex-start;
 				align-items: center;
+				flex-direction: column;
 				.info {
       		padding: 0 10px;
+					flex: 0 1 auto;
 				}
 				.box-wrapper { // view box
-					flex: 1 1 300px;
+					flex: 0 0 auto;
 				 	min-width: 300px;
 					width: auto;
+					max-width: 500px;
+					overflow: hidden;
 					padding: 20px;
 					margin: 10px;
 					background: #fff;
@@ -174,15 +194,17 @@ body {
 					p.code-value {
 						font-weight: bold;
 						font-size: 1.5rem;
-						border-bottom: 3px solid red;
-						margin: 0;
+						border-bottom: 3px solid #000;
+						margin: 0;		
+						color: darkred;
 					}
 				}
 			}		
 		}
 			
 		.title, .subtitle {
-			margin: 0 0 15px;
+			margin: 0;
+			font-family: 'Fugaz One', cursive;
 		}
 		form {
 		display: flex;

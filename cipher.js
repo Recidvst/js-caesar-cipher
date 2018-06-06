@@ -41,6 +41,16 @@ The 'shift' values must be the same for this to work - this is the key value whi
 You could attempt to brute-force this by looping the function X times where X is the shift value, similar to attacking a password hash.
 */
 
+
+// only allow letters to be entered into the source
+document.querySelector("#source-string").addEventListener('keypress', function(event) {
+		var inputValue = event.which;
+		// allow letters and whitespaces only.
+		if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+				event.preventDefault(); 
+		}
+});
+
 // Vue Stuff
 Vue.component('caesar-cipher', {
   data() {
@@ -93,3 +103,4 @@ Vue.component('caesar-cipher', {
 new Vue({
 		el: '#app'
 });
+

@@ -10,22 +10,25 @@
     <title> JS Caesar Cipher </title>
 
     <link href="cipher.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fugaz+One|Montserrat:200,300,400" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
   </head>
 <body>
 
-<div id="app">
+<div id="app" >
 <caesar-cipher inline-template>
-    <div class="caesar-cipher">
+    <div class="caesar-cipher" :class="{ encode: toggle, decode: !toggle }">
         
         <div class="header">
             <h1 class="title"> Javascript Caesar Cipher </h1>
             <div id="toggle">
-                <span class="toggle-span encode" :class="{ disabled: toggle }"> Encode </span>
+                <span class="toggle-span subtitle encode" :class="{ disabled: toggle }"> Encode </span>
                 <label class="switch">
                     <input id="encodeToggle" type="checkbox" v-on:click="checkboxToggle">
                     <span class="slider round"></span>
                 </label>		
-                <span class="toggle-span decode" :class="{ disabled: !toggle }"> Decode </span>
+                <span class="toggle-span subtitle decode" :class="{ disabled: !toggle }"> Decode </span>
             </div>
         </div>
         
@@ -33,17 +36,20 @@
             <div class="controls">
                 <div id="source">
                     <form>
-                    <p> Choose the source of characters to be used in the cipher. Standard is a-z, but feel free to mix it up. If you want to use symbols in your code then you'll need to add them.</p>
-                    <input type="text"
-                                    class="source-string" 
+                    <p> Choose the source of characters to be used in the cipher. <br/> Standard is a-z, but feel free to mix it up. <br/>	Letters only, and if you want caps, then you'll need them here.</p>
+                    <input id="source-string" 
+                                    type="text"
+                                    class="source-string"
                                     v-model="possible" 
                                     value="{possible}"
+                                    required
                                     />		
                     <p> Choose the shift value. This is the number of characters the encoder will shift each letter.</p>
                     <input type="number"
                                     class="shift-value"
                                     v-model="shift" 
                                     value="edit me"
+                                    required
                                     />	
                     </form>
                 </div>
